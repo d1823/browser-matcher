@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+NoDisplay=true
+Name=Browser Proxy
+Comment=Browse the World Wide Web
+GenericName=Web Browser
+Keywords=Internet;WWW;Browser;Web;Explorer
+Exec=browser-proxy %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=emblem-web
+Categories=GNOME;GTK;Network;WebBrowser;
+MimeType=x-scheme-handler/http;x-scheme-handler/https;
+StartupNotify=true

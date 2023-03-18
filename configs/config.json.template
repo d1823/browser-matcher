@@ -1,0 +1,33 @@
+{
+  "browsers": [
+    {
+      "id": "firefox",
+      "bin": "/usr/bin/firefox"
+    },
+    {
+      "id": "google-chrome-default",
+      "bin": "/usr/bin/google-chrome",
+      "args": [
+        "--profile-directory=Default"
+      ]
+    },
+    {
+      "id": "google-chrome-custom-profile",
+      "bin": "/usr/bin/google-chrome",
+      "args": [
+        "--profile-directory=Profile 1"
+      ]
+    },
+    {
+      "id": "firefox",
+      "bin": "/usr/bin/firefox"
+    }
+  ],
+  "rules": [
+    {
+      "browser": "google-chrome-profile",
+      "value": "youtube.com"
+    }
+  ],
+  "defaultBrowser": "google-chrome-default"
+}
