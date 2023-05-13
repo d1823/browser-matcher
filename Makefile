@@ -25,7 +25,7 @@ help:
 
 .PHONY: install
 install:
-	OS=linux ARCH=amd64 CMD=browser-proxy $(MAKE) compile-and-install
+	OS=linux ARCH=amd64 CMD=browser-matcher $(MAKE) compile-and-install
 
 .PHONY: compile-and-install
 compile-and-install:
@@ -33,15 +33,15 @@ compile-and-install:
 	install -d $(DESTDIR)$(PREFIX)/bin
 	install -m 755 build/$(CMD)/$(CMD)_$(OS)_$(ARCH) $(DESTDIR)$(PREFIX)/bin/$(CMD)
 	install -d $(XDG_CONFIG_HOME)/browser-local
-	install -b -S .old configs/config.json.template $(XDG_CONFIG_HOME)/browser-local/config.json
+	install -b -S .old templates/config.json.template $(XDG_CONFIG_HOME)/browser-local/config.json
 	install -d $(PREFIX)/share/applications
-	install -m 764 configs/browser-proxy.desktop.template $(PREFIX)/share/applications/browser-proxy.desktop
-	sed -i'' "s#Exec\=browser\-proxy \%u#Exec\=\"$$(realpath $(DESTDIR)$(PREFIX)/bin/$(CMD))\" \%u#" $(PREFIX)/share/applications/browser-proxy.desktop
+	install -m 764 templates/browser-matcher.desktop.template $(PREFIX)/share/applications/browser-matcher.desktop
+	sed -i'' "s#Exec\=browser\-matcher \%u#Exec\=\"$$(realpath $(DESTDIR)$(PREFIX)/bin/$(CMD))\" \%u#" $(PREFIX)/share/applications/browser-matcher.desktop
 	update-desktop-database $(PREFIX)/share/applications
 
 .PHONY: build
 build:
-	OS=linux ARCH=amd64 CMD=browser-proxy $(MAKE) compile
+	OS=linux ARCH=amd64 CMD=browser-matcher $(MAKE) compile
 
 .PHONY: compile
 compile: build/$(CMD)/$(CMD)_$(OS)_$(ARCH)

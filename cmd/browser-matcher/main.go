@@ -13,7 +13,7 @@ func main() {
 	if !ok {
 		p = path.Join(os.Getenv("HOME"), ".config")
 	}
-	p = path.Join(p, "browser-proxy/config.json")
+	p = path.Join(p, "browser-matcher/config.json")
 
 	c, err := readConfig(p)
 	if err != nil {

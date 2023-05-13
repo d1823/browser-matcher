@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
 NoDisplay=true
-Name=Browser Proxy
+Name=Browser Matcher
 Comment=Browse the World Wide Web
 GenericName=Web Browser
 Keywords=Internet;WWW;Browser;Web;Explorer
-Exec=browser-proxy %u
+Exec=browser-matcher %u
 Terminal=false
 X-MultipleArgs=false
 Type=Application
