@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"regexp"
@@ -89,8 +88,7 @@ func readConfig(p string) (Config, error) {
 	var c Config
 	err = json.Unmarshal(b, &c)
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return Config{}, err
 	}
 
 	return c, nil
