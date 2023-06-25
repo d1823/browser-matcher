@@ -2,20 +2,34 @@ package main
 
 import (
 	"errors"
+    "fmt"
 	"log"
 	"os"
 	"path"
+    "strings"
 	"syscall"
 )
 
 func main() {
-	errLog := log.New(os.Stderr, "", 0)
-
 	p, ok := os.LookupEnv("XDG_CONFIG_HOME")
 	if !ok {
 		p = path.Join(os.Getenv("HOME"), ".config")
 	}
 	p = path.Join(p, "browser-matcher/config.json")
+
+    if len(os.Args) == 2 && strings.Contains(os.Args[1], "-h") {
+        fmt.Printf("Usage: %s\n", os.Args[0])
+        fmt.Println("Browser Matcher is a tool that automatically matches URLs to the appropriate web browser based on preconfigured patterns.")
+        fmt.Println()
+        fmt.Printf(
+            "To use Browser Matcher, create a JSON configuration file at \"%s\" that specifies the web browsers you want to use and the rules for matching URLs to specific browsers.\n",
+            p,
+        )
+
+        os.Exit(0)
+    }
+
+	errLog := log.New(os.Stderr, "", 0)
 
 	c, err := readConfig(p)
 	if err != nil {
