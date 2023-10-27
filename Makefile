@@ -6,7 +6,7 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 ifeq ($(XDG_CONFIG_HOME),)
-    XDG_CONFIG_HOME := $$HOME/.config
+    XDG_CONFIG_HOME := /etc
 endif
 .PHONY: help
 help:
@@ -19,6 +19,7 @@ help:
 	@echo "\tbuild         \tBuilds the binary."
 	@echo "\tinstall       \tInstall the binary, a basic config file and a desktop file."
 	@echo "\t              \tSet the value of the PREFIX (default: /usr/local) to change the installation location."
+	@echo "\t              \tSet the value of the XDG_CONFIG_HOME to change the config location."
 	@echo
 	@echo "Utilities:"
 	@echo "\tclear         \tRemoves all build artifacts."
@@ -32,8 +33,8 @@ compile-and-install:
 	OS=$(OS) ARCH=$(ARCH) CMD=$(CMD) $(MAKE) compile
 	install -d $(DESTDIR)$(PREFIX)/bin
 	install -m 755 build/$(CMD)/$(CMD)_$(OS)_$(ARCH) $(DESTDIR)$(PREFIX)/bin/$(CMD)
-	install -d $(XDG_CONFIG_HOME)/browser-local
-	install -b -S .old templates/config.json.template $(XDG_CONFIG_HOME)/browser-local/config.json
+	install -d $(XDG_CONFIG_HOME)/browser-matcher
+	install -b -S .old templates/config.json.template $(XDG_CONFIG_HOME)/browser-matcher/config.json
 	install -d $(PREFIX)/share/applications
 	install -m 764 templates/browser-matcher.desktop.template $(PREFIX)/share/applications/browser-matcher.desktop
 	sed -i'' "s#Exec\=browser\-matcher \%u#Exec\=\"$$(realpath $(DESTDIR)$(PREFIX)/bin/$(CMD))\" \%u#" $(PREFIX)/share/applications/browser-matcher.desktop

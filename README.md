@@ -15,7 +15,7 @@ Use the attached Makefile. Run `make` to see the available options.
 
 # Usage
 ## Installation
-To install the application system-wide, run `sudo make install`. Alternatively, to install it just for the current user, run `PREFIX=~/.local make install`.
+To install the application system-wide, run `sudo make install`. Alternatively, to install it just for the current user, run `PREFIX=~/.local XDG_CONFIG_HOME=~/.config make install`.
 
 ## Configuration
 To use Browser Matcher, create a JSON configuration file at `$XDG_CONFIG_HOME/browser-matcher/config.json` that specifies the web browsers you want to use and the rules for matching URLs to specific browsers. The configuration file should have the following format:

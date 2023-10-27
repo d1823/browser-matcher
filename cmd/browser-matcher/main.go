@@ -2,35 +2,34 @@ package main
 
 import (
 	"errors"
-    "fmt"
+	"fmt"
+	"github.com/adrg/xdg"
 	"log"
 	"os"
 	"path"
-    "strings"
+	"strings"
 	"syscall"
 )
 
 func main() {
-	p, ok := os.LookupEnv("XDG_CONFIG_HOME")
-	if !ok {
-		p = path.Join(os.Getenv("HOME"), ".config")
+	if len(os.Args) == 2 && strings.Contains(os.Args[1], "-h") {
+		fmt.Printf("Usage: %s\n", os.Args[0])
+		fmt.Println("Browser Matcher is a tool that automatically matches URLs to the appropriate web browser based on preconfigured patterns.")
+		fmt.Println()
+		fmt.Printf(
+			"To use Browser Matcher, create a JSON configuration file at \"%s/browser-matcher/config.json\" that specifies the web browsers you want to use and the rules for matching URLs to specific browsers.\n",
+			xdg.ConfigHome,
+		)
+
+		os.Exit(0)
 	}
-	p = path.Join(p, "browser-matcher/config.json")
-
-    if len(os.Args) == 2 && strings.Contains(os.Args[1], "-h") {
-        fmt.Printf("Usage: %s\n", os.Args[0])
-        fmt.Println("Browser Matcher is a tool that automatically matches URLs to the appropriate web browser based on preconfigured patterns.")
-        fmt.Println()
-        fmt.Printf(
-            "To use Browser Matcher, create a JSON configuration file at \"%s\" that specifies the web browsers you want to use and the rules for matching URLs to specific browsers.\n",
-            p,
-        )
-
-        os.Exit(0)
-    }
 
 	errLog := log.New(os.Stderr, "", 0)
 
+	p, err := xdg.SearchConfigFile("browser-matcher/config.json")
+	if err != nil {
+		log.Fatalf("reading the config file: %v", err)
+	}
 	c, err := readConfig(p)
 	if err != nil {
 		errLog.Fatalln(err)
